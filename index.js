@@ -1,10 +1,13 @@
 // Required modules
+let cors = require('cors')
 let express = require('express')
 
 // Express instance
 let app = express()
 
-// Set up body-parser (omg)
+// Set up body-parser and cors
+app.use(cors())
+app.use(express.json({limit: '50mb'}))
 app.use(express.urlencoded({extended:false}))
 
 // Controllers
