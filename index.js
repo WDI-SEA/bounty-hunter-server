@@ -4,6 +4,9 @@ let express = require('express')
 // Express instance
 let app = express()
 
+// Set up body-parser (omg)
+app.use(express.urlencoded({extended:false}))
+
 // Controllers
 app.use('/v1/bounties', require('./controllers/v1/bounties'))
 
