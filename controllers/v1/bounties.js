@@ -9,7 +9,7 @@ let db = require('../../models')
 
 // GET /bounties
 router.get('/', (req, res) => {
-  db.Bounty.find()
+  db.Bounty.find().populate('hunters')
   .then(foundBounties => {
     res.send(foundBounties)
   })
@@ -21,16 +21,20 @@ router.get('/', (req, res) => {
 })
 
 // POST /bounties
-router.post('/', (req, res) => {
-  db.Bounty.create(req.body)
-  .then(createdBounty => {
-    res.send(createdBounty)
-  })
-  .catch(err => {
-    console.log('Error in POST /v1/bounties')
-    console.log(err)
-    res.status(500).send('Something went wrong. Please contact an administrator.')
-  })
+router.post('/', async (req, res) => {
+	try {
+		let {hunter, ...bounty} = req.body
+		let createdBounty = await db.Bounty.create(bounty)
+		let createdHunter = await db.Hunter.create({ name: hunter})
+		createdHunter.bounties.push(createdBounty._id)
+		createdBounty.hunters.push(createdHunter._id)
+		res.send(createdHunter)
+	} catch (error) {
+		
+		console.log('Error in POST /v1/bounties')
+		console.log(error)
+		res.status(500).send('Something went wrong. Please contact an administrator.')
+	}
 })
 
 // GET /bounties/:id

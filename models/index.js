@@ -11,3 +11,4 @@ mongoose.connect(
 )
 
 module.exports.Bounty = require('./bounty')
+module.exports.Hunter = require('./hunter')

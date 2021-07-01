@@ -12,6 +12,7 @@ app.use(express.urlencoded({extended:false}))
 
 // Controllers
 app.use('/v1/bounties', require('./controllers/v1/bounties'))
+app.use('/v1/hunters', require('./controllers/v1/hunters'))
 
 // Catch-all (wildcard) route
 app.get('*', (req, res) => {

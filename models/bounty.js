@@ -1,15 +1,6 @@
 // Require the modules needed
 let mongoose = require('mongoose')
 
-let hunter = new mongoose.Schema({
-	name: {
-		type: String,
-		required: true,
-		minlength: 2,
-		maxlength: 100
-	}
-})
-
 // Create a Schema instance for bounty
 let bountySchema = new mongoose.Schema({
   name: {
@@ -28,9 +19,9 @@ let bountySchema = new mongoose.Schema({
     type: Number,
     default: 10000
   },
-  hunters: {
-    type: [hunter]
-  },
+  hunters: [{
+	  type: mongoose.Schema.Types.ObjectId, ref: 'Hunter'
+  }],
   captured: {
     type: Boolean,
     default: false
