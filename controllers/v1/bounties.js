@@ -64,20 +64,29 @@ router.put('/:id', (req, res) => {
   })
 })
 
-// DELETE /bounties/:id
-router.delete('/:id', (req, res) => {
-  db.Bounty.findOneAndDelete({
-    _id: req.params.id
-  }, { useFindAndModify: false })
-  .then((deletedBounty) => {
-    res.send(deletedBounty)
+// DELETE /v1/bounties
+router.delete('/', (req, res) => {
+	db.Bounty.deleteMany()
+	.then(() => {
+	  res.send({ message: 'We did it?' })
+	})
+	.catch(err => {
+	  console.log(err)
+	  res.status(503).send({ message: 'Server Error' })
+	})
   })
-  .catch(err => {
-    console.log('Error in DELETE /v1/bounties/:id')
-    console.log(err)
-    res.status(500).send('Something went wrong. Please contact an administrator.')
+  
+  // DELETE /v1/bounties
+  router.delete('/:id', (req, res) => {
+	db.Bounty.findByIdAndDelete(req.params.id)
+	.then(() => {
+	  res.status(204).send()
+	})
+	.catch(err => {
+	  console.log(err)
+	  res.status(503).send({ message: 'Server Error' })
+	})
   })
-})
 
 module.exports = router
 

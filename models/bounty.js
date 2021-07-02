@@ -28,9 +28,7 @@ let bountySchema = new mongoose.Schema({
     type: Number,
     default: 10000
   },
-  hunters: {
-    type: [hunter]
-  },
+  hunters: [hunter],
   captured: {
     type: Boolean,
     default: false

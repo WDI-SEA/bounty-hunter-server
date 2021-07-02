@@ -5,8 +5,8 @@ mongoose.connect(
 	process.env.MONGODB_URI || 'mongodb://localhost/hunters', 
 	{ 
 		useNewUrlParser: true, 
-		user: process.env.ATLAS_USERNAME, 
-		pass: process.env.ATLAS_PASSWORD 
+		// user: process.env.ATLAS_USERNAME, 
+		// pass: process.env.ATLAS_PASSWORD 
 	}
 )
 
