@@ -9,7 +9,7 @@ let db = require('../../models')
 
 // GET /hunters
 router.get('/', (req, res) => {
-  db.Hunter.find().populate()
+  db.Hunter.find().populate('bounties')
   .then(foundHunters => {
     res.send(foundHunters)
   })

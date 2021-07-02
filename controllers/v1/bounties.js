@@ -28,6 +28,8 @@ router.post('/', async (req, res) => {
 		let createdHunter = await db.Hunter.create({ name: hunter})
 		createdHunter.bounties.push(createdBounty._id)
 		createdBounty.hunters.push(createdHunter._id)
+		createdHunter.save()
+		createdBounty.save()
 		res.send(createdHunter)
 	} catch (error) {
 		
@@ -67,6 +69,17 @@ router.put('/:id', (req, res) => {
     res.status(500).send('Something went wrong. Please contact an administrator.')
   })
 })
+
+router.delete('/', (req, res) => {
+	db.Bounty.deleteMany()
+	.then(() => {
+	  res.send({ message: 'We did it?' })
+	})
+	.catch(err => {
+	  console.log(err)
+	  res.status(503).send({ message: 'Server Error' })
+	})
+  })
 
 // DELETE /bounties/:id
 router.delete('/:id', (req, res) => {
