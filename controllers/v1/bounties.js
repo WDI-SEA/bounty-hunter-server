@@ -28,7 +28,7 @@ router.post('/', (req, res) => {
   })
   .catch(err => {
     console.log('Error in POST /v1/bounties')
-    console.log(err)
+    console.log(err)	
     res.status(500).send('Something went wrong. Please contact an administrator.')
   })
 })
